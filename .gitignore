@@ -1,5 +1,7 @@
 __pycache__
 token.pickle
 credentials.json
-items.json
 *.zip
+
+dist/*
+build/*
