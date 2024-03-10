@@ -1,12 +1,18 @@
 # Gdrive CLI
 
-## How to use 
-Download "gdrive-executable" zip from https://github.com/rishabh-j-23/gdrive-cli/releases and extract it
+## How to Use
 
-run gdrive.exe once 
+1. Download the "gdrive-executable" zip from [GitHub Releases](https://github.com/rishabh-j-23/gdrive-cli/releases) and extract it.
 
-now go to C:/Users/{User}/.gdrive-cli/ folder and add credentials.json file
+2. Run `gdrive.exe` once.
 
-add credentials.json file in folder with gdrive.exe (follow https://github.com/glotlabs/gdrive/blob/main/docs/create_google_api_credentials.md for steps)
+3. Navigate to `C:/Users/{User}/.gdrive-cli/` folder and add `credentials.json` file.
 
-after adding credentials.json type ".\gdrive login" to connect cli to your google account
+   - Follow the instructions outlined in [this guide](https://github.com/glotlabs/gdrive/blob/main/docs/create_google_api_credentials.md) to create and obtain the `credentials.json` file.
+
+4. After adding `credentials.json`, navigate to the folder containing `gdrive.exe`.
+    - (Optional) you may add it to the env
+
+5. Open a terminal or command prompt in this folder.
+
+6. Type `.\gdrive login` to connect the CLI to your Google account.
