@@ -16,14 +16,15 @@ def setup(subparsers):
     parser = subparsers.add_parser(
         'download', help='Download file from Google Drive')
     parser.add_argument('-id', '--id', help='ID of the file to export')
-    parser.add_argument('-d', '--destination', help='Destination of downloaded file', default="/")
+    parser.add_argument('-d', '--destination',
+                        help='Destination of downloaded file', default="/")
     parser.add_argument(
         '-n', '--name', help='Save file with name (give proper extension eg. example.zip, exmaple.txt, etc)', default='',)
     parser.set_defaults(func=download_file)
 
 
 def download_file(args):
-    service = build('drive', 'v3', credentials=authenticate())
+    service = build("drive", "v3", credentials=authenticate())
 
     file_id = args.id
     destination = args.destination
@@ -34,14 +35,14 @@ def download_file(args):
 
         file = service.files().get(fileId=file_id).execute()
         original_file_name = file['name']
-        
+
         if not name:
             name = original_file_name
 
-        #generate proper path
+        # generate proper path
         relative_path = os.path.join(destination, name)
         absolute_path = os.path.join(os.getcwd(), relative_path)
-        
+
         # Ensure that the directory exists
         os.makedirs(os.path.dirname(absolute_path), exist_ok=True)
 
@@ -56,6 +57,7 @@ def download_file(args):
         with open(absolute_path, 'wb') as f:
             f.write(fh.getvalue())
 
-        print(Colors.GREEN, "Downloaded Successfully!!", Colors.RESET, "Saved to: ", absolute_path)
+        print(Colors.GREEN, "Downloaded Successfully!!",
+              Colors.RESET, "Saved to: ", absolute_path)
     except Exception as e:
         print(e)

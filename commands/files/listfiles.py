@@ -17,8 +17,10 @@ CREDENTIALS_PATH = 'credentials.json'
 
 def setup(subparsers):
     parser = subparsers.add_parser('list', help='List files from Google Drive')
-    parser.add_argument('-ps', '--pagesize', type=int, help='Number of files per page', default=10)
-    parser.add_argument('-S', '--show-type', help='show which mimetype to show (use "gdrive mimetype" to see all mimetype)')
+    parser.add_argument('-ps', '--pagesize', type=int,
+                        help='Number of files per page', default=10)
+    parser.add_argument(
+        '-S', '--show-type', help='show which mimetype to show (use "gdrive mimetype" to see all mimetype)')
     parser.set_defaults(func=list_files)
 
 
@@ -36,7 +38,7 @@ def list_files(args, pageSize=10):
         print("User not logged in")
         return
 
-    service = build('drive', 'v3', credentials=creds)
+    service = build("drive", "v3", credentials=creds)
 
     results = service.files().list(
         pageSize=pageSize, fields="nextPageToken, files(id, name, modifiedTime, mimeType, size)").execute()
@@ -63,15 +65,14 @@ def print_table(data, show_type):
         datetime_obj = datetime.fromisoformat(row['modifiedTime'][:-1])
         # Format the datetime object as a readable string
         time = datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
-        
+
         if show_type:
             if row['mimeType'] == mime_types.get(show_type):
                 if "size" not in row:
-                    row['size'] = "None" 
+                    row['size'] = "None"
                 print(f"{row['name'].ljust(max_name_length)}  {row['mimeType'].ljust(max_mimeType_length)}  {time.ljust(max_date_length)}  {row['id'].ljust(max_id_length)}  {row['size'].ljust(14)}  ")
 
         else:
             if "size" not in row:
-                row['size'] = "None" 
+                row['size'] = "None"
             print(f"{row['name'].ljust(max_name_length)}  {row['mimeType'].ljust(max_mimeType_length)}  {time.ljust(max_date_length)}  {row['id'].ljust(max_id_length)}  {row['size'].ljust(14)}  ")
-
