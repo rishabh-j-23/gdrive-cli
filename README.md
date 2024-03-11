@@ -34,7 +34,9 @@
 - `list`:  
   - Description: List files from Google Drive.
   - Arguments:
-    - None
+    - `-ps PAGESIZE, --pagesize PAGESIZE`: Specify the number of files per page.
+    - `-S SHOW_TYPE, --show-type SHOW_TYPE`: Show files of a specific mimetype. You can use "gdrive mimetype" to see all supported mimetypes.
+
 
 - `upload`:  
   - Description: Upload a file to Google Drive.
