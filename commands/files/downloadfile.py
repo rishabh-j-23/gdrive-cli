@@ -15,13 +15,10 @@ from cli.authenticate import authenticate
 def setup(subparsers):
     parser = subparsers.add_parser(
         'download', help='Download file from Google Drive')
-    parser.add_argument('-id', '--id', help='ID of the file to export')
-    parser.add_argument('-d', '--destination',
-                        help='Destination of downloaded file', default="/")
-    parser.add_argument(
-        '-n', '--name', help='Save file with name (give proper extension eg. example.zip, exmaple.txt, etc)', default='',)
+    parser.add_argument('-id', '--id', help='ID of the file to download')
+    parser.add_argument('destination', help='Destination of downloaded file', default="/")
+    parser.add_argument('-n', '--name', help='Save file with name (give proper extension eg. example.zip, exmaple.txt, etc)', default='',)
     parser.set_defaults(func=download_file)
-
 
 def download_file(args):
     service = build("drive", "v3", credentials=authenticate())
@@ -49,7 +46,7 @@ def download_file(args):
         fh = io.BytesIO()
         downloader = MediaIoBaseDownload(fh, request)
         done = False
-        while done is False:
+        while not done:
             status, done = downloader.next_chunk()
             print("Download %d%%." % int(status.progress() * 100))
 
@@ -57,7 +54,6 @@ def download_file(args):
         with open(absolute_path, 'wb') as f:
             f.write(fh.getvalue())
 
-        print(Colors.GREEN, "Downloaded Successfully!!",
-              Colors.RESET, "Saved to: ", absolute_path)
+        print(Colors.GREEN, "Downloaded Successfully!!", Colors.RESET, "Saved to: ", absolute_path)
     except Exception as e:
         print(e)

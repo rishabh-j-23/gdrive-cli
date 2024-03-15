@@ -13,13 +13,11 @@ from cli.authenticate import authenticate
 
 
 def setup(subparsers):
-    parser = subparsers.add_parser(
-        'export', help='Export file from Google Drive')
+    parser = subparsers.add_parser('export', help='Export file from Google Drive')
     parser.add_argument('-id', '--id', help='ID of the file to export')
-    parser.add_argument('-d', '--destination',
-                        help='Destination of exported file', default="/")
-    parser.add_argument(
-        '-n', '--name', help='Save file with name (give proper extension eg. example.zip, exmaple.txt, etc)', default='',)
+    parser.add_argument('destination', help='Destination of exported file', default="/")
+    parser.add_argument('-n', '--name', help='Save file with name (give proper extension eg. example.zip, exmaple.txt, etc)', default='')
+    parser.add_argument('-t', '--type', help='export file as (zip, exmaple.txt, etc)', default='')
     parser.set_defaults(func=export_file)
 
 
@@ -29,6 +27,7 @@ def export_file(args):
     file_id = args.id
     destination = args.destination
     name = args.name
+    _type = args.type
 
     try:
         file_metadata = service.files().get(fileId=file_id).execute()
@@ -43,10 +42,9 @@ def export_file(args):
         # Ensure that the directory exists
         os.makedirs(os.path.dirname(absolute_path), exist_ok=True)
 
-        request = service.files().export_media(
-            fileId=file_id, mimeType='application/pdf')
+        request = service.files().export_media(fileId=file_id, mimeType='application/pdf')
 
-        with open(absolute_path+'.pdf', 'wb') as f:
+        with open(absolute_path + str(_type), 'wb') as f:
             downloader = MediaIoBaseDownload(f, request)
             done = False
             while done is False:

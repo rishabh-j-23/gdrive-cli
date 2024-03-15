@@ -31,14 +31,8 @@ def list_files(args, pageSize=10):
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = authenticate()
-    else:
-        print("User not logged in")
-        return
 
-    service = build("drive", "v3", credentials=creds)
+    service = build("drive", "v3", credentials=authenticate())
 
     results = service.files().list(
         pageSize=pageSize, fields="nextPageToken, files(id, name, modifiedTime, mimeType, size)").execute()
