@@ -9,7 +9,7 @@ import pickle
 
 from cli.colors import Colors
 from cli.authenticate import authenticate
-from cli.mimetypes import mime_types
+from mimetypes_dict import mime_types
 
 import json
 

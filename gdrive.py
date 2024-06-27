@@ -10,7 +10,7 @@ from googleapiclient.http import MediaFileUpload
 from googleapiclient.errors import HttpError
 
 from cli.commands.files import listfiles, uploadfiles, deletefiles, downloadfile, exportfiles
-from cli.commands import mimetypes
+from commands import mimetypes_list
 from cli.commands.auth import login, logout
 from cli.commands.account import me, storage
 
@@ -40,7 +40,7 @@ def add_subparsers(subparsers):
     exportfiles.setup(subparsers)
 
     # Mimetypes list
-    mimetypes.setup(subparsers)
+    mimetypes_list.setup(subparsers)
 
     # Account
     me.setup(subparsers)

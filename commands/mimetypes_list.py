@@ -1,5 +1,5 @@
 from cli.colors import Colors
-from cli.mimetypes import mime_types
+from mimetypes_dict import mime_types
 
 def setup(subparsers):
     parser = subparsers.add_parser('mimetypes', help='List mimetypes supported by Google Drive')

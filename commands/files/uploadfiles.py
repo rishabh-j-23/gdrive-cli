@@ -1,11 +1,5 @@
 from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
 from googleapiclient.http import MediaFileUpload
-
-import pickle
-import argparse
-import os
 
 from cli.colors import Colors
 from cli.authenticate import authenticate
@@ -23,14 +17,15 @@ def upload_file(args):
     service = build("drive", "v3", credentials=authenticate())
     file_path = args.path
     file_name = args.name
-    id = args.id
-    file_metadata = {'name': file_name}
-    if id:
-        file_metadata['parents'] = [id]
+    id = args.id 
 
+    file_metadata = {
+        'name': file_name,
+    }
     media = MediaFileUpload(file_path, resumable=True)
+
 
     file = service.files().create(body=file_metadata,
                                   media_body=media,
                                   fields='id').execute()
-    print(Colors.GREEN + 'File ID: ', file.get('id'), " File Name: ", file.get('name', "NA"), " Uploaded Successfully!!" + Colors.RESET)
+    print(Colors.GREEN + 'File ID: ', file.get('id'), " \nFile Name: ", file_name, " Uploaded Successfully!!" + Colors.RESET)
