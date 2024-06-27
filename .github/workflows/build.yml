@@ -30,7 +30,7 @@ jobs:
 
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v3
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.CLI_PAT }}
         with:
@@ -40,7 +40,7 @@ jobs:
           prerelease: false
 
       - name: Upload Release Asset
-        uses: actions/upload-release-asset@v3
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.CLI_PAT }}
         with:
