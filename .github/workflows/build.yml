@@ -3,7 +3,7 @@ name: Build and Release Binary
 on:
   push:
     tags:
-      - "v*.*.*" # Triggers workflow on version tags (e.g., v1.0.0)
+      - 'v*.*.*'  # Triggers workflow on version tags (e.g., v1.0.0)
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: "3.11.8" # Specify the Python version you need
+          python-version: '3.x'  # Specify the Python version you need
 
       - name: Install dependencies
         run: |
@@ -26,13 +26,13 @@ jobs:
 
       - name: Build binary
         run: |
-          pyinstaller gdrive.py
+          pyinstaller --onefile your_script.py
 
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
-          CLI_PAT: ${{ secrets.CLI_PAT }}
+          GITHUB_TOKEN: ${{ secrets.CLI_PAT }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
@@ -42,9 +42,9 @@ jobs:
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
-          CLI_PAT: ${{ secrets.CLI_PAT }}
+          GITHUB_TOKEN: ${{ secrets.CLI_PAT }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/gdrive # Path to your built binary
-          asset_name: gdrive # Name of the binary file
+          asset_path: dist/your_script  # Path to your built binary
+          asset_name: your_script  # Name of the binary file
           asset_content_type: application/octet-stream
