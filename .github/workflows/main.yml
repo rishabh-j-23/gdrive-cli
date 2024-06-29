@@ -2,18 +2,17 @@ name: Build and Release Binary
 
 on:
   push:
-    branches:
-      - main # Triggers on commits to the main branch
+    # branches:
+    #   - main # Triggers on commits to the main branch
     tags:
       - "v*.*.*" # Triggers workflow on version tags (e.g., v1.0.0)
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions: read-all
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
       - name: Set up Python
         uses: actions/setup-python@v3
@@ -48,4 +47,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: dist/gdrive # Path to your built binary
+          asset_name: gdrive
           asset_content_type: application/octet-stream
