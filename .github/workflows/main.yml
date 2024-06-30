@@ -54,7 +54,7 @@ jobs:
     - name: Upload Release Asset
       uses: actions/upload-release-asset@main
       env:
-        GITHUB_TOKEN: ${{ secrets.CLI_PAT }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: dist/
