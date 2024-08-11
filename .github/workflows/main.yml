@@ -29,13 +29,14 @@ jobs:
         pip install pyinstaller
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     
-    - name: current directories
-      run: |
-          pwd
-          ls
-          ls dist
     - name: Build binary
       run: pyinstaller gdrive.py
+
+    - name: current directories
+      run: |
+        pwd
+        ls
+        ls dist
 
     - name: Get release version
       id: get_version
