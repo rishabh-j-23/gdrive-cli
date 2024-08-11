@@ -4,7 +4,7 @@
 
 1. **Download** the "gdrive-executable" zip from [GitHub Releases](https://github.com/rishabh-j-23/gdrive-cli/releases) and **extract** it.
 
-2. **Run** `gdrive.exe` once.
+2. Move to dist/gdrive and rename `gdrive` to `gdrive.exe`. **Run** `gdrive.exe` once.
 
 3. **Navigate** to `C:/Users/{User}/.gdrive-cli/` folder and **add** `credentials.json` file.
    
