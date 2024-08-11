@@ -32,8 +32,27 @@ jobs:
     - name: Build binary
       run: pyinstaller gdrive.py
 
+    - name: current directories
+      run: |
+          pwd
+          ls
+          ls dist
+
+    - name: Get release version
+      id: get_version
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
     - name: Create zip archive
       run: zip -r dist/gdrive-${{ env.RELEASE_VERSION }}.zip dist/gdrive
+
+    - name: Verify zip file exists
+      run: |
+          if [ -f "dist/gdrive-v1.0.2.zip" ]; then
+            echo "gdrive-v1.0.2.zip found in dist/"
+          else
+            echo "Error: gdrive-v1.0.2.zip not found in dist/"
+            exit 1
+          fi
 
     - name: Create Release
       id: create_release
